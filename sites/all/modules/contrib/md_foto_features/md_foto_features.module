@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the MD Foto Features feature.
+ */
+
+include_once 'md_foto_features.features.inc';
