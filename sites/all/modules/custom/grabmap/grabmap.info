@@ -1,0 +1,6 @@
+name = 'GrabMap'
+description = 'Display Google Map centered at coordinates provided in Location Field'
+core = 7.x
+version = 1.0
+
+scripts[] = js/grabmap.js

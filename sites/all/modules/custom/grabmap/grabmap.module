@@ -1,0 +1,61 @@
+<?php
+
+/*function grabmap_field_display_node_alter(&$display, $context) {
+  // dsm($context);
+  $coordinates = $context['entity']->field_location['und']['0']['value'];
+  // dsm($coordinates);
+  $coor_array = explode(",",$coordinates,2);
+  // print_r($coor_array);
+  $latitude = $coor_array[0];
+  $longitude = $coor_array[1];
+  // dsm($latitude);
+}*/
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function grabmap_field_formatter_info() {
+  return array(
+    'grabmap_field_format' => array(
+      'label' => t('GrabMap Marker key'),
+      'field types' => array('text'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function grabmap_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $coordinates = array();
+  if($display['type'] == 'grabmap_field_format') {
+    $coordinates = $items['0']['value'];
+    $coordinates = explode(",",$coordinates,2);
+    $latitude = $coordinates[0];
+    $longitude = $coordinates[1];
+    drupal_add_js(array('grabmap' => array('latitude' => $latitude, 'longitude' => $longitude)), array('type' => 'setting'));
+    drupal_add_js('js/grabmap.js', 'file');
+    return array(
+      '#theme' => 'grabmapthemex',
+      );
+  //   foreach ($items as $delta => $item) {
+  //       $element[$delta] = array(
+  //         '#theme' => 'mymodule_website',
+  //         '#' => $entity->field_website['und'][0]['title'],
+  //         '#url' => $entity->field_website['und'][0]['url'],
+  //       );
+  //   }
+  //   break;
+  // return $element;
+  }
+}
+
+function grabmap_theme($existing, $type, $theme, $path) {
+  // dpm($existing);
+  return array(
+    'grabmapthemex' => array(
+      'template' => 'template/grabmap_themed',
+      'variables' => array(),
+    ),
+  );
+}

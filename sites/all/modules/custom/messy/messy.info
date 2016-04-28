@@ -1,0 +1,4 @@
+name = "The Messy Module"
+description = "Messes around with forms and menus"
+core = 7.x
+version = 1.0
